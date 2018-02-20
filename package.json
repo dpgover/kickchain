@@ -1,0 +1,17 @@
+{
+  "name": "kickchain",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "fs-extra": "^5.0.0",
+    "mocha": "^5.0.1",
+    "solc": "^0.4.20",
+    "truffle-hdwallet-provider": "^0.0.3",
+    "web3": "^1.0.0-beta.30",
+    "webpack": "^3.11.0"
+  }
+}
