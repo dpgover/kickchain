@@ -12,9 +12,12 @@ contract Campaign {
 
     address public manager;
     uint public minimumContribution;
+    string public name;
+    string public description;
     mapping (address => bool) public contributors;
     uint contributorsCount;
     Request[] public requests;
+    uint public openRequestsCount;
 
     modifier onlyOwner() {
         require(msg.sender == manager);
@@ -30,13 +33,18 @@ contract Campaign {
         Request memory request = requests[requestId];
 
         require(!request.complete);
-
         _;
     }
 
-    function Campaign(uint minimum, address creator) public {
+    function Campaign(string _name, string _description, uint _minimumContribution, address creator) public {
         manager = creator;
-        minimumContribution = minimum;
+        name = _name;
+        description = _description;
+        minimumContribution = _minimumContribution;
+    }
+
+    function getCampaignData() public view returns (address, uint, string, string, uint, uint) {
+        return (manager, minimumContribution, name, description, contributorsCount, openRequestsCount);
     }
 
     function contribute() public payable {
@@ -46,16 +54,17 @@ contract Campaign {
         contributorsCount++;
     }
 
-    function createRequest(string description, uint value, address supplier) public onlyOwner {
+    function createRequest(string _description, uint _value, address _supplier) public onlyOwner {
         Request memory request = Request({
-            description: description,
-            payment: value,
-            supplier: supplier,
+            description: _description,
+            payment: _value,
+            supplier: _supplier,
             complete: false,
             approvalCount: 0
         });
 
         requests.push(request);
+        openRequestsCount++;
     }
 
     function approveRequest(uint requestId) public notCompleted(requestId) onlyContributor {
@@ -74,6 +83,7 @@ contract Campaign {
         require(request.approvalCount > (contributorsCount / 2));
 
         request.complete = true;
+        openRequestsCount--;
 
         request.supplier.transfer(request.payment);
     }

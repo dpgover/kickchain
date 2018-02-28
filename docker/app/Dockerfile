@@ -4,4 +4,4 @@ FROM node:latest
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # install truffle
-RUN npm install -g yarn truffle
+RUN npm install -g yarn

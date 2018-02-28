@@ -26,7 +26,7 @@ beforeEach(async () => {
 
   factory.setProvider(provider);
 
-  await factory.methods.createCampaign(minimum).send({
+  await factory.methods.createCampaign('Name', 'Description', minimum).send({
     from: accounts[0],
     gas: '1000000',
   });
