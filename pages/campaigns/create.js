@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Form, Icon, Input, Message } from 'semantic-ui-react'
 import Layout from '../../components/layout/Layout';
+import { Router } from '../../routes/routes';
 import factory from '../../ethereum/factory';
 import web3 from '../../ethereum/web3';
-import { Router } from '../../routes/routes';
 
 class CampaignsCreate extends Component {
   constructor(props, context) {

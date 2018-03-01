@@ -20,22 +20,36 @@ export const campaignsData = async (max) => {
 };
 
 export const campaignData = async (address) => {
+  const campaign = await campaignContracts(address);
 
-    const campaign = await campaignContracts(address);
+  const campaignData = await campaign.methods.getCampaignData().call();
+  const funds = await web3.eth.getBalance(campaign.options.address);
 
-    const campaignData = await campaign.methods.getCampaignData().call();
-    const funds = await web3.eth.getBalance(campaign.options.address);
+  const [manager, minimum, name, description, contributors, openRequests] = Object.values(campaignData);
 
-    const [manager, minimum, name, description, contributors, openRequests] = Object.values(campaignData);
+  return {
+    name,
+    description,
+    address,
+    minimum,
+    manager,
+    contributors,
+    openRequests,
+    funds,
+  };
+};
 
-    return {
-      name,
-      description,
-      address,
-      minimum,
-      manager,
-      contributors,
-      openRequests,
-      funds,
-    };
+export const campaignRequests = async (address) => {
+  const requests = [];
+
+  const campaign = await campaignContracts(address);
+
+  const openRequests = await campaign.methods.openRequestsCount().call();
+
+  for(let i = 0; i < openRequests; i++) {
+    const request = await campaign.methods.requests(i).call();
+    requests.push(request);
+  }
+
+  return requests;
 };
