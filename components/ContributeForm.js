@@ -58,7 +58,6 @@ class ContributeForm extends Component {
           value: contribution
         });
 
-      //Router.reload();
       this.state.onSuccess();
 
       this.setState({

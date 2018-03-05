@@ -50,8 +50,10 @@ contract Campaign {
     function contribute() public payable {
         require(msg.value >= minimumContribution);
 
-        contributors[msg.sender] = true;
-        contributorsCount++;
+        if (!contributors[msg.sender]) {
+            contributors[msg.sender] = true;
+            contributorsCount++;
+        }
     }
 
     function createRequest(string _description, uint _value, address _supplier) public onlyOwner {
@@ -86,5 +88,11 @@ contract Campaign {
         openRequestsCount--;
 
         request.supplier.transfer(request.payment);
+    }
+
+    function contributorVoted(uint requestId, address contributor) public view returns (bool) {
+        Request storage request = requests[requestId];
+
+        return request.voters[contributor];
     }
 }

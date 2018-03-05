@@ -48,7 +48,14 @@ export const campaignRequests = async (address) => {
 
   for(let i = 0; i < openRequests; i++) {
     const request = await campaign.methods.requests(i).call();
-    requests.push(request);
+    requests.push({
+      id: i,
+      description: request.description,
+      payment: request.payment,
+      supplier: request.supplier,
+      approvalCount: request.approvalCount,
+      complete: request.complete,
+    });
   }
 
   return requests;

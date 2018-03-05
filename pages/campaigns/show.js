@@ -61,14 +61,14 @@ class CampaignsShow extends Component {
               </Card.Group>
             </Grid.Column>
             <Grid.Column width={4}>
-              <ContributeForm address={this.state.campaign.address} minimum={this.state.campaign.minimum} onSuccess={this.reloadCampaign} />
+              <ContributeForm address={this.state.campaign.address} minimum={this.state.campaign.minimum} onSuccess={() => { this.reloadCampaign(); this.reloadRequests(); }} />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={16}>
+              <Divider fitted />
               <Header as="h3">Requests</Header>
-              <Divider section />
-              <RequestsList campaign={this.state.campaign} requests={this.state.requests} onSuccess={this.reloadRequests} />
+              <RequestsList campaign={this.state.campaign} requests={this.state.requests} onSuccess={() => { this.reloadCampaign(); this.reloadRequests(); }} />
             </Grid.Column>
           </Grid.Row>
         </Grid>

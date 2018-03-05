@@ -13,7 +13,7 @@ class CampaignList extends Component {
 
   render() {
     return (
-      <Card.Group itemsPerRow={3} stackable>
+      <Card.Group itemsPerRow={2} stackable>
         {this.state.campaigns.map((campaign, k) => {
           return <CampaignItem key={k} campaign={campaign} />;
         })}
