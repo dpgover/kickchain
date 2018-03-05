@@ -108,7 +108,7 @@ class RequestsList extends Component {
         <Message
           error
           hidden={!this.state.error.hasError}
-          onDismiss={this.showError}
+          onDismiss={() => { this.showError(); }}
         >
           <Message.Header>
             There was an error processing the transaction
