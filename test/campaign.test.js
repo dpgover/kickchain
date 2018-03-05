@@ -21,14 +21,14 @@ beforeEach(async () => {
     })
     .send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
   factory.setProvider(provider);
 
   await factory.methods.createCampaign('Name', 'Description', minimum).send({
     from: accounts[0],
-    gas: '1000000',
+    gas: '5000000',
   });
 
   [campaignAddress] = await factory.methods.listCampaigns().call();
@@ -50,7 +50,7 @@ describe('Campaigns', () => {
     await campaign.methods.contribute().send({
       from: accounts[1],
       value: (minimum * 2).toString(),
-      gas: '1000000',
+      gas: '5000000',
     });
 
     const isContributor = await campaign.methods.contributors(accounts[1]).call();
@@ -63,7 +63,7 @@ describe('Campaigns', () => {
       await campaign.methods.contribute().send({
         from: accounts[1],
         value: (minimum - 1).toString(),
-        gas: '1000000',
+        gas: '5000000',
       });
 
       assert(false);
@@ -79,7 +79,7 @@ describe('Campaigns', () => {
 
     await campaign.methods.createRequest(description, payment, supplier).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     const request = await campaign.methods.requests(0).call();
@@ -95,7 +95,7 @@ describe('Campaigns', () => {
     try {
       await campaign.methods.createRequest('description', '1000', accounts[2]).send({
         from: accounts[1],
-        gas: '1000000',
+        gas: '5000000',
       });
 
       assert(false);
@@ -108,7 +108,7 @@ describe('Campaigns', () => {
     await campaign.methods.contribute().send({
       from: accounts[1],
       value: '200',
-      gas: '1000000',
+      gas: '5000000',
     });
 
     const payment = web3.utils.toWei('200', 'ether');
@@ -116,12 +116,12 @@ describe('Campaigns', () => {
 
     await campaign.methods.createRequest('Batteries!', payment, supplier).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.approveRequest(0).send({
       from: accounts[1],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     const request = await campaign.methods.requests(0).call();
@@ -134,7 +134,7 @@ describe('Campaigns', () => {
     await campaign.methods.contribute().send({
       from: accounts[1],
       value: '200',
-      gas: '1000000',
+      gas: '5000000',
     });
 
     const payment = web3.utils.toWei('200', 'ether');
@@ -142,13 +142,13 @@ describe('Campaigns', () => {
 
     await campaign.methods.createRequest('Batteries!', payment, supplier).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     try {
       await campaign.methods.approveRequest(0).send({
         from: accounts[2],
-        gas: '1000000',
+        gas: '5000000',
       });
 
       assert(false);
@@ -161,7 +161,7 @@ describe('Campaigns', () => {
     await campaign.methods.contribute().send({
       from: accounts[1],
       value: '200',
-      gas: '1000000',
+      gas: '5000000',
     });
 
     const payment = web3.utils.toWei('200', 'ether');
@@ -169,18 +169,18 @@ describe('Campaigns', () => {
 
     await campaign.methods.createRequest('Batteries!', payment, supplier).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.approveRequest(0).send({
       from: accounts[1],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     try {
       await campaign.methods.approveRequest(0).send({
         from: accounts[1],
-        gas: '1000000',
+        gas: '5000000',
       });
 
       assert(false);
@@ -198,7 +198,7 @@ describe('Campaigns', () => {
     await campaign.methods.contribute().send({
       from: accounts[1],
       value: web3.utils.toWei('10', 'ether'),
-      gas: '1000000',
+      gas: '5000000',
     });
 
     const payment = web3.utils.toWei('5', 'ether');
@@ -210,17 +210,17 @@ describe('Campaigns', () => {
 
     await campaign.methods.createRequest('Batteries!', payment, supplier).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.approveRequest(0).send({
       from: accounts[1],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.finalizeRequest(0).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     let postBalance = await web3.eth.getBalance(supplier);
@@ -238,19 +238,19 @@ describe('Campaigns', () => {
     await campaign.methods.contribute().send({
       from: accounts[1],
       value: '200',
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.contribute().send({
       from: accounts[2],
       value: '200',
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.contribute().send({
       from: accounts[0],
       value: '200',
-      gas: '1000000',
+      gas: '5000000',
     });
 
     const payment = '100';
@@ -258,28 +258,28 @@ describe('Campaigns', () => {
 
     await campaign.methods.createRequest('Batteries!', payment, supplier).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.approveRequest(0).send({
       from: accounts[1],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.approveRequest(0).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.finalizeRequest(0).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     try {
       await campaign.methods.approveRequest(0).send({
         from: accounts[2],
-        gas: '1000000',
+        gas: '5000000',
       });
 
       assert(false);
@@ -297,7 +297,7 @@ describe('Campaigns', () => {
     await campaign.methods.contribute().send({
       from: accounts[1],
       value: '200',
-      gas: '1000000',
+      gas: '5000000',
     });
 
     const payment = '200';
@@ -305,23 +305,23 @@ describe('Campaigns', () => {
 
     await campaign.methods.createRequest('Batteries!', payment, supplier).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.approveRequest(0).send({
       from: accounts[1],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.finalizeRequest(0).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     try {
       await campaign.methods.finalizeRequest(0).send({
         from: accounts[0],
-        gas: '1000000',
+        gas: '5000000',
       });
 
       assert(false);
@@ -334,7 +334,7 @@ describe('Campaigns', () => {
     await campaign.methods.contribute().send({
       from: accounts[1],
       value: '200',
-      gas: '1000000',
+      gas: '5000000',
     });
 
     const payment = '200';
@@ -342,18 +342,18 @@ describe('Campaigns', () => {
 
     await campaign.methods.createRequest('Batteries!', payment, supplier).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.approveRequest(0).send({
       from: accounts[1],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     try {
       await campaign.methods.finalizeRequest(0).send({
         from: accounts[1],
-        gas: '1000000',
+        gas: '5000000',
       });
 
       assert(false);
@@ -370,7 +370,7 @@ describe('Campaigns', () => {
     await campaign.methods.contribute().send({
       from: accounts[1],
       value: '200',
-      gas: '1000000',
+      gas: '5000000',
     });
 
     const payment = '500';
@@ -378,18 +378,18 @@ describe('Campaigns', () => {
 
     await campaign.methods.createRequest('Batteries!', payment, supplier).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.approveRequest(0).send({
       from: accounts[1],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     try {
       await campaign.methods.finalizeRequest(0).send({
         from: accounts[1],
-        gas: '1000000',
+        gas: '5000000',
       });
 
       assert(false);
@@ -406,19 +406,19 @@ describe('Campaigns', () => {
     await campaign.methods.contribute().send({
       from: accounts[1],
       value: '200',
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.contribute().send({
       from: accounts[2],
       value: '200',
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.contribute().send({
       from: accounts[0],
       value: '200',
-      gas: '1000000',
+      gas: '5000000',
     });
 
     const payment = '500';
@@ -426,18 +426,18 @@ describe('Campaigns', () => {
 
     await campaign.methods.createRequest('Batteries!', payment, supplier).send({
       from: accounts[0],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     await campaign.methods.approveRequest(0).send({
       from: accounts[1],
-      gas: '1000000',
+      gas: '5000000',
     });
 
     try {
       await campaign.methods.finalizeRequest(0).send({
         from: accounts[1],
-        gas: '1000000',
+        gas: '5000000',
       });
 
       assert(false);
