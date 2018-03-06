@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Container, Divider, Grid, Header} from 'semantic-ui-react';
+import { Card, Container, Divider, Grid, Header, Segment} from 'semantic-ui-react';
 import Layout from '../../components/layout/Layout';
 import CampaignCard from '../../components/CampaignCard';
 import ContributeForm from "../../components/ContributeForm";
@@ -48,10 +48,10 @@ class CampaignsShow extends Component {
           <p>{this.state.campaign.description}</p>
         </Container>
         <Divider section />
-        <Grid padded={'vertically'}>
+        <Grid padded={'vertically'} stackable>
           <Grid.Row>
-            <Grid.Column width={12}>
-              <Card.Group stackable itemsPerRow={3}>
+            <Grid.Column computer={12} mobile={16}>
+              <Card.Group stackable doubling itemsPerRow={3}>
                 <CampaignCard label={'Address'} value={this.state.campaign.address} color="green" size="mini" />
                 <CampaignCard label={'Manager'} value={this.state.campaign.manager} color="teal" size="mini" />
                 <CampaignCard label={'ETH Minimum Contribution'} value={web3.utils.fromWei(this.state.campaign.minimum, 'ether')} color="blue" size="large" />
@@ -60,8 +60,10 @@ class CampaignsShow extends Component {
                 <CampaignCard label={'Open Requests'} value={this.state.campaign.openRequests} color="pink" size="large" />
               </Card.Group>
             </Grid.Column>
-            <Grid.Column width={4}>
-              <ContributeForm address={this.state.campaign.address} minimum={this.state.campaign.minimum} onSuccess={() => { this.reloadCampaign(); this.reloadRequests(); }} />
+            <Grid.Column computer={4} mobile={16}>
+              <Segment clearing>
+                <ContributeForm address={this.state.campaign.address} minimum={this.state.campaign.minimum} onSuccess={() => { this.reloadCampaign(); this.reloadRequests(); }} />
+              </Segment>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
